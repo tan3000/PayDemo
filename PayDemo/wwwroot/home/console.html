@@ -1,0 +1,349 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>系统控制台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../Content/tuniu.css" />
+    <script src="../Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../Scripts/index.js"></script>
+</head>
+<body>
+
+    <style>
+        body, html, div, blockquote, img, label, p, h1, h2, h3, h4, h5, h6, pre, ul, ol,
+        li, dl, dt, dd, form, a, fieldset, input, th, td {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: none;
+            list-style-type: none;
+            overflow-x: none
+        }
+
+        body {
+            line-height: 1;
+            font-size: 88%;
+            font-family: "微软雅黑"
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-size: 100%;
+            margin: 0;
+            font-weight: 400;
+            padding: 0;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        a {
+            color: #404040;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md8">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">快捷方式</div>
+                            <div class="layui-card-body">
+                                <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                                    <div carousel-item>
+                                        <ul class="layui-row layui-col-space10">
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-console"></i>
+                                                    <cite>模块1</cite>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-chart"></i>
+                                                    <cite>模块2</cite>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-template-1"></i>
+                                                    <cite>模块3</cite>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-chat"></i>
+                                                    <cite>模块4</cite>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-find-fill"></i>
+                                                    <cite>模块5</cite>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-survey"></i>
+                                                    <cite>模块6</cite>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-user"></i>
+                                                    <cite>模块7</cite>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="">
+                                                    <i class="layui-icon layui-icon-set"></i>
+                                                    <cite>模块8</cite>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">系统统计</div>
+                            <div class="layui-card-body">
+
+                                <div class="layui-carousel layadmin-carousel layadmin-backlog">
+                                    <div carousel-item>
+                                        <ul class="layui-row layui-col-space10">
+                                            <li class="layui-col-xs6">
+                                                <a href="javascript:;" onclick="layer.tips('全省经办机构总数', this, {tips: 3});" class="layadmin-backlog-body">
+                                                    <h3>组织机构</h3>
+                                                    <p><cite>153</cite></p>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs6">
+                                                <a href="javascript:;" onclick="layer.tips('当前系统用户使用数', this, {tips: 3});" class="layadmin-backlog-body">
+                                                    <h3>在线人数</h3>
+                                                    <p><cite>12</cite></p>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs6">
+                                                <a href="javascript:;" onclick="layer.tips('全省系统用户数', this, {tips: 3});" class="layadmin-backlog-body">
+                                                    <h3>总用户数</h3>
+                                                    <p><cite>260</cite></p>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs6">
+                                                <a href="javascript:;" onclick="layer.tips('资金支出数据采集', this, {tips: 3});" class="layadmin-backlog-body">
+                                                    <h3>日志记录</h3>
+                                                    <p><cite>22</cite></p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <!--<div class="layui-card-header">数据概览</div>-->
+                            <div class="layui-card-body">
+
+                                <!--<div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-dataview">
+      <div carousel-item id="LAY-index-dataview">
+        <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>-->
+                                <div class="layui-card-header">
+                                    动态图片切换演示
+                                    <i class="layui-icon layui-icon-tips" lay-tips="系统说明" lay-offset="5"></i>
+                                </div>
+                                <!--<div class="layui-card-body layui-text layadmin-text">
+        <p>通过《云南省就业补助资金支付对象实名制数据库网络版》的建设及升级，继续提高资金补贴的执行效率，监管资金使用过程，精准扶持就业；</p>
+        <p>网络版系统建设，使每笔资金有据可依，通过补贴资金的实名制管理，规范全省就业补助资金补贴政策标准，同时又尽可能的满足地区差异的地方政策标准；</p>
+        <p>通过网络版系统的优势：实时的反应系统提供资金的使用状况，对比资金预算，形成资金的预算执行情况，便于政府部门根据各地区的情况进行资金分配的调整，确保就业资金的分配及使用效益达到最大程度优化；</p>
+        <p>网络版系统的建设与就业相关的系统实现数据共享、互联互通，尽可能的实现各系统的“一网通办”。</p>
+    </div>-->
+                                <div class="center">
+                                    <div class="center_top">
+                                        <!-- <==========================================================> -->
+                                        <!-- 轮播图开始区域 -->
+                                        <!-- <div id="bannar"> -->
+                                        <div class="content_middle">
+                                            <div class="">
+
+                                                <a class="common btnLeft" href="javascript:;"></a>
+                                                <a class="common btnRight" href="javascript:;"></a>
+
+                                            </div>
+
+
+                                            <ul>
+                                                <li style="background:url(/Content/images/bz1.png) no-repeat center center;opacity: 100;filter: alpha(opacity=1);"></li>
+                                                <li style="background:url(/Content/images/bz2.png) no-repeat center center;"></li>
+                                                <li style="background:url(/Content/images/bz3.png) no-repeat center center;"></li>
+                                                <li style="background:url(/Content/images/bz4.png) no-repeat center center;"></li>
+                                            </ul>
+                                            <div class="table">
+                                                <a class="small_active" href="javascript:;">数据采集</a>
+                                                <a href="javascript:;">统计分析</a>
+                                                <a href="javascript:;">查询统计</a>
+                                                <a href="javascript:;">资金分析</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--<div class="layui-card">
+                          <div class="layui-tab layui-tab-brief layadmin-latestData">
+                            <ul class="layui-tab-title">
+                              <li class="layui-this">今日热搜</li>
+                              <li>今日热帖</li>
+                            </ul>
+                            <div class="layui-tab-content">
+                              <div class="layui-tab-item layui-show">
+                                <table id="LAY-index-topSearch"></table>
+                              </div>
+                              <div class="layui-tab-item">
+                                <table id="LAY-index-topCard"></table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>-->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header">政策文件</div>
+                    <div class="layui-card-body layui-text">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="100">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td>下载中心</td>
+                                    <td>
+                                        <script type="text/html" template>
+                                            <!--v{{ layui.admin.v }}-->
+                                            <a href="#" style="padding-left: 0px;">云XX[2020]3号&nbsp;关于印发XXXXXX的通知</a>
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>上传日期</td>
+                                    <td>
+                                        <script type="text/html" template>
+                                              <!--layui-v{{ layui.v }}-->
+                                            2020年9月1日
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>下载次数</td>
+                                    <td>187</td>
+                                </tr>
+                                <!--<tr>
+                                  <td>服务渠道</td>
+                                  <td style="padding-bottom: 0;">
+                                    <div class="layui-btn-container">
+                                      <a href="#" target="_blank" class="layui-btn layui-btn-danger">在线客服</a>
+                                      <a href="#/" target="_blank" class="layui-btn">加密获取</a>
+                                    </div>
+                                  </td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--<div class="layui-card">
+                  <div class="layui-card-header">效果报告</div>
+                  <div class="layui-card-body layadmin-takerates">
+                    <div class="layui-progress" lay-showPercent="yes">
+                      <h3>转化率（日同比 28% <span class="layui-edge layui-edge-top" lay-tips="增长" lay-offset="-15"></span>）</h3>
+                      <div class="layui-progress-bar" lay-percent="65%"></div>
+                    </div>
+                    <div class="layui-progress" lay-showPercent="yes">
+                      <h3>签到率（日同比 11% <span class="layui-edge layui-edge-bottom" lay-tips="下降" lay-offset="-15"></span>）</h3>
+                      <div class="layui-progress-bar" lay-percent="32%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="layui-card">
+                  <div class="layui-card-header">实时监控</div>
+                  <div class="layui-card-body layadmin-takerates">
+                    <div class="layui-progress" lay-showPercent="yes">
+                      <h3>CPU使用率</h3>
+                      <div class="layui-progress-bar" lay-percent="58%"></div>
+                    </div>
+                    <div class="layui-progress" lay-showPercent="yes">
+                      <h3>内存占用率</h3>
+                      <div class="layui-progress-bar layui-bg-red" lay-percent="90%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="layui-card">
+                  <div class="layui-card-header">产品动态</div>
+                  <div class="layui-card-body">
+                    <div class="layui-carousel layadmin-carousel layadmin-news" data-autoplay="true" data-anim="fade" lay-filter="news">
+                      <div carousel-item>
+                        <div><a href="http://fly.layui.com/docs/2/" target="_blank" class="layui-bg-red">layuiAdmin 快速上手文档</a></div>
+                        <div><a href="http://fly.layui.com/vipclub/list/layuiadmin/" target="_blank" class="layui-bg-green">layuiAdmin 会员讨论专区</a></div>
+                        <div><a href="http://www.layui.com/admin/#get" target="_blank" class="layui-bg-blue">获得 layui 官方后台模板系统</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>-->
+
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        系统概述
+                        <i class="layui-icon layui-icon-tips" lay-tips="操作手册" lay-offset="5"></i>
+                    </div>
+                    <div class="layui-card-body layui-text layadmin-text">
+                        <p>网络版由资金支出数据采集、查询统计、资金分析、系统管理、系统接口五大功能模块组成。</p>
+                        <p>系统核心模块为数据采集与分析，分别由22个不同的数据采集项组成。用户可选择手工录入或Excel自动导入的两种方式进行采集。</p>
+                        <p>查询统计功能可对资金进行年度数据分类汇总；按支出地区与数据填报日期进行汇总；根据登录用户权限进行支出明细查询与汇总。</p>
+                        <p>具体操作请查看《系统用户操作手册》</p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../../layuiadmin/layui/layui.js?t=1"></script>
+    <script>
+        layui.config({
+            base: '../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'console']);
+    </script>
+</body>
+</html>
+

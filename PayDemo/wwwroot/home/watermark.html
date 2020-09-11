@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+       <script type="text/javascript" src="..//Scripts/echarts.js"></script>
+       <script type="text/javascript">
+           var dom = document.getElementById("container");
+           var myChart = echarts.init(dom);
+           var app = {};
+           option = null;
+           app.title = '水印 - ECharts 下载统计'
+
+           var builderJson = {
+               "all": 10887,
+               "charts": {
+                   "就业创业服务补贴": 2090,
+                   "技能大师工作室": 1762,
+                   "公益性岗位": 1593,
+                   "高技能人才培训": 2060,
+                   "岗位技能": 1537,
+                   "扶持创业补助": 1908,
+                   "创业吸纳就业补贴": 2107,
+                   "创业培训补贴": 1692,
+                   "创业补贴": 1568
+               },
+               "components": {
+                   "职业技能鉴定": 2788,
+                   "社会保险补贴": 9400,
+                   "求职创业": 9466,
+                   "其他个人": 9266,
+                   "其他单位": 3419,
+                   "就业见习": 2984,
+                   "就业技能补贴": 2739,
+               },
+               "ie": 9743
+           };
+
+           var downloadJson = {
+               "昆明市": 17365,
+               "曲靖市": 4079,
+               "保山市": 6929,
+               "丽江市": 14890
+           };
+
+           var themeJson = {
+               "普洱市": 1594,
+               "临沧市": 925,
+               "楚雄彝族自治州": 1608,
+               "红河哈尼族彝族自治州": 721,
+               "文山壮族苗族自治州": 2179,
+           };
+
+           var waterMarkText = 'ECHARTS';
+
+           var canvas = document.createElement('canvas');
+           var ctx = canvas.getContext('2d');
+           canvas.width = canvas.height = 100;
+           ctx.textAlign = 'center';
+           ctx.textBaseline = 'middle';
+           ctx.globalAlpha = 0.08;
+           ctx.font = '20px Microsoft Yahei';
+           ctx.translate(50, 50);
+           ctx.rotate(-Math.PI / 4);
+           ctx.fillText(waterMarkText, 0, 0);
+
+           option = {
+               backgroundColor: {
+                   type: 'pattern',
+                   image: canvas,
+                   repeat: 'repeat'
+               },
+               tooltip: {},
+               title: [{
+                   text: '资金统计',
+                   subtext: '总计 ' + builderJson.all,
+                   x: '25%',
+                   textAlign: 'center'
+               }, {
+                   text: '分布区域',
+                   subtext: '总计 ' + Object.keys(downloadJson).reduce(function (all, key) {
+                       return all + downloadJson[key];
+                   }, 0),
+                   x: '75%',
+                   textAlign: 'center'
+               }, {
+                   text: '',
+                   subtext: '总计 ' + Object.keys(themeJson).reduce(function (all, key) {
+                       return all + themeJson[key];
+                   }, 0),
+                   x: '75%',
+                   y: '50%',
+                   textAlign: 'center'
+               }],
+               grid: [{
+                   top: 50,
+                   width: '50%',
+                   bottom: '45%',
+                   left: 10,
+                   containLabel: true
+               }, {
+                   top: '55%',
+                   width: '50%',
+                   bottom: 0,
+                   left: 10,
+                   containLabel: true
+               }],
+               xAxis: [{
+                   type: 'value',
+                   max: builderJson.all,
+                   splitLine: {
+                       show: false
+                   }
+               }, {
+                   type: 'value',
+                   max: builderJson.all,
+                   gridIndex: 1,
+                   splitLine: {
+                       show: false
+                   }
+               }],
+               yAxis: [{
+                   type: 'category',
+                   data: Object.keys(builderJson.charts),
+                   axisLabel: {
+                       interval: 0,
+                       rotate: 30
+                   },
+                   splitLine: {
+                       show: false
+                   }
+               }, {
+                   gridIndex: 1,
+                   type: 'category',
+                   data: Object.keys(builderJson.components),
+                   axisLabel: {
+                       interval: 0,
+                       rotate: 30
+                   },
+                   splitLine: {
+                       show: false
+                   }
+               }],
+               series: [{
+                   type: 'bar',
+                   stack: 'chart',
+                   z: 3,
+                   label: {
+                       normal: {
+                           position: 'right',
+                           show: true
+                       }
+                   },
+                   data: Object.keys(builderJson.charts).map(function (key) {
+                       return builderJson.charts[key];
+                   })
+               }, {
+                   type: 'bar',
+                   stack: 'chart',
+                   silent: true,
+                   itemStyle: {
+                       normal: {
+                           color: '#eee'
+                       }
+                   },
+                   data: Object.keys(builderJson.charts).map(function (key) {
+                       return builderJson.all - builderJson.charts[key];
+                   })
+               }, {
+                   type: 'bar',
+                   stack: 'component',
+                   xAxisIndex: 1,
+                   yAxisIndex: 1,
+                   z: 3,
+                   label: {
+                       normal: {
+                           position: 'right',
+                           show: true
+                       }
+                   },
+                   data: Object.keys(builderJson.components).map(function (key) {
+                       return builderJson.components[key];
+                   })
+               }, {
+                   type: 'bar',
+                   stack: 'component',
+                   silent: true,
+                   xAxisIndex: 1,
+                   yAxisIndex: 1,
+                   itemStyle: {
+                       normal: {
+                           color: '#eee'
+                       }
+                   },
+                   data: Object.keys(builderJson.components).map(function (key) {
+                       return builderJson.all - builderJson.components[key];
+                   })
+               }, {
+                   type: 'pie',
+                   radius: [0, '30%'],
+                   center: ['75%', '25%'],
+                   data: Object.keys(downloadJson).map(function (key) {
+                       return {
+                           name: key.replace('.js', ''),
+                           value: downloadJson[key]
+                       }
+                   })
+               }, {
+                   type: 'pie',
+                   radius: [0, '30%'],
+                   center: ['75%', '75%'],
+                   data: Object.keys(themeJson).map(function (key) {
+                       return {
+                           name: key.replace('.js', ''),
+                           value: themeJson[key]
+                       }
+                   })
+               }]
+           };
+           if (option && typeof option === "object") {
+               myChart.setOption(option, true);
+           }
+       </script>
+   </body>
+</html>

@@ -15,6 +15,11 @@ namespace PayDemo.Controllers
             return View();
         }
 
+        public IActionResult Index1()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -25,5 +30,6 @@ namespace PayDemo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

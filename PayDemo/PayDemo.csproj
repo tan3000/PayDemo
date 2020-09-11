@@ -7,9 +7,12 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Alipay.AopSdk.F2FPay" Version="2.2.7" />
+    <PackageReference Include="LayUI" Version="2.4.5" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="QRCoder" Version="1.3.9" />
   </ItemGroup>
 
 </Project>

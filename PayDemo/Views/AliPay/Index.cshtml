@@ -1,0 +1,63 @@
+﻿
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+
+        $(function () {
+            var img = $('.qr-code-img');
+            var test = $('#test');
+
+            $('#btn').on('click', function (e) {
+                $.ajax({
+                    url: '@Url.Action("FaceToPay", "AliPay")',
+                    type: 'post',
+                    success: function (e) {
+                        if (true) {
+                            $('.qr-code-img').attr('src', "/AliPay/FaceToPay");
+                            $('#test').html(e.out_trade_no);
+                        } else {
+                            alert('失败');
+                        }
+                    },
+                    error : function (e) {
+                        alert('发送失败');
+                    }
+                })
+
+            })
+        })
+
+        $(function () {
+                    $('#ptn').on('click', function (e) {
+                $.ajax({
+                    url: '@Url.Action("FaceToPay", "AliPay")',
+                    data: ({ pin: true }),
+                    type: 'post',
+                    success: function(e) {
+                        $('#pin1').html(" 订单编号：" + e.out_trade_no);
+                        $('#pin2').html(" 支付金额￥：" + e.tot);
+                        $('#pin3').html(" 具体内容：" + e.suj);
+                    }
+                })
+            })
+        })
+
+    </script>
+
+    <div class="row">
+        <div class="col-sm-12" s>
+            <div>
+                <div class="qr-order">
+                    <input id="ptn" type="button" name="name" value="支付信息" />
+                    <label id="pin1"></label><label id="pin2"></label><label id="pin3"></label>
+                </div>
+            </div>
+            <hr />
+            <div class="wr-qr">
+                <input id="btn" type="button" name="name" value="生成二维码" />
+                <div class="qr-order">
+                    <img src="#" class="qr-code-img" style="height:255px;width:249px;" />
+                </div>
+            </div>
+            </div>
+        </div>
+
