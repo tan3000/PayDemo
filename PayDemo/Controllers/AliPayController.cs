@@ -7,15 +7,22 @@ using Alipay.AopSdk.F2FPay.Domain;
 using Alipay.AopSdk.F2FPay.Model;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
 using System.Threading;
 
-namespace WsyCardInfo.Controllers
+namespace PayDemo.Controllers
 {
     public class AliPayController : Controller
     {
@@ -39,6 +46,17 @@ namespace WsyCardInfo.Controllers
         const string ALIPAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkVkX1GcMTGOzJgi9C1g2EEfDepwRdkB7M2tLy6e2JGMITuOkFa2YnpHOt8eG0zH8tg2Tks/3JulV7JNl0nGrd7vMSRo3YXaYUYyv68lNVKr24Q1XeRIws/e8VbxvBkbeBAiz5AkTRuzM7C3SNs78x0wLkiTwcxtwNrVp+W+zk60KG7xLoz99yAoVsfA/FT3ioGYeq9qanClWAzQmbXHC55szN12sGMAjuFNMzhYgjI3JRk4uPARtkVyjCERfARhRCvaE6HjMgP5VUJsAKJGi+SY5XnlH57DGqcol1iNqKFx0y7asTA/svDrd+xnS22Bul4IY8r93pjli2VXEUf89ZwIDAQAB";
 
         IAlipayTradeService serviceClient = F2FBiz.CreateClientInstance(URL, APPID, APP_PRIVATE_KEY, "1.0", "RSA2", ALIPAY_PUBLIC_KEY, CHARSET);
+
+        public ActionResult Test()
+        {
+            //var ii = ts.Trim('"') == "TRADE_CLOSED" ? true : false;
+            //return Content(GetJson(St.tradeStatus));
+            Dictionary<string, string> openWith = new Dictionary<string, string>();
+            openWith.Add("tradeno", "333333214");
+            openWith.Add("alipayTradeNo", "");
+            var url= "http://localhost:1901/AliPay/OrderClose";
+            return Content(PostHtml(url,openWith));
+        }
 
         // GET: AliPay
         public ActionResult Index()
@@ -71,7 +89,15 @@ namespace WsyCardInfo.Controllers
             return View();
         }
 
-        public ActionResult FaceToPay(bool pin = false)
+        /// <summary>
+        /// 生成支付二维码
+        /// </summary>
+        /// <param name="orderName">订单名称</param>
+        /// <param name="orderAmount">订单金额</param>
+        /// <param name="outTradeNo">订单号</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult FaceToPay(string orderName, string orderAmount, string outTradeNo, bool pin = false)
         {   //域名
 
             IAopClient client = new DefaultAopClient(URL, APPID, APP_PRIVATE_KEY, FORMAT, "1.0", "RSA2", ALIPAY_PUBLIC_KEY, CHARSET, false);
@@ -87,10 +113,10 @@ namespace WsyCardInfo.Controllers
 
             AlipayTradePayModel model = new AlipayTradePayModel
             {
-                OutTradeNo = "201908082" + RandKey,
-                TotalAmount = "88.88",
-                Subject = "Iphone7 Plus 128G",
-                StoreId = "NJ_001",
+                OutTradeNo = outTradeNo + RandKey,
+                TotalAmount = orderAmount,
+                Subject = orderName,
+                //StoreId = "NJ_001",
                 TimeoutExpress = "90m"
             };
 
@@ -150,8 +176,6 @@ namespace WsyCardInfo.Controllers
                     byte[] bytes = ms.GetBuffer();
                     return File(bytes, "image/png");
                 }
-                //return Json(res);
-
             }
             else
             {
@@ -348,6 +372,36 @@ namespace WsyCardInfo.Controllers
         }
 
         /// <summary>
+        /// 订单查询返回结果(参数任选一可查询)
+        /// </summary>
+        /// <param name="tradeno">订单号</param>
+        /// <param name="alipayTradeNo">支付宝交易号</param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetQuery(string tradeno, string alipayTradeNo)
+        {
+            IAopClient client = new DefaultAopClient(URL, APPID, APP_PRIVATE_KEY, FORMAT, "1.0", "RSA2", ALIPAY_PUBLIC_KEY, CHARSET, false);
+
+            AlipayTradeQueryModel model = new AlipayTradeQueryModel
+            {
+                OutTradeNo = tradeno,
+                TradeNo = alipayTradeNo
+            };
+
+            AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
+            request.SetBizModel(model);
+
+            var response = client.Execute(request);
+            return Json(new
+            {
+                TradeStatus = response.TradeStatus,
+                SendPayDate = response.SendPayDate,
+                TradeNo = response.TradeNo
+            });
+
+        }
+
+        /// <summary>
         /// 订单退款
         /// </summary>
         /// <param name="tradeno">商户订单号</param>
@@ -430,6 +484,122 @@ namespace WsyCardInfo.Controllers
 
             var response = client.Execute(request);
             return Json(response.Body);
+        }
+
+        public string GetHtml(string html)//传入网址
+        {
+            string resultstring = "";
+            Encoding encoding = Encoding.UTF8;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(html);//这里的url指要获取的数据网址
+            request.Method = "GET";
+            request.Accept = "text/html, application/xhtml+xml, */*";
+            request.ContentType = "application/json";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+            {
+                resultstring = reader.ReadToEnd();
+            }
+            return resultstring;
+        }
+
+        /// <summary>
+        /// 支付宝返回项
+        /// </summary>
+        public enum St
+        {
+            /// <summary>
+            /// 支付状态
+            /// </summary>
+            tradeStatus,
+            /// <summary>
+            /// 支付时间
+            /// </summary>
+            sendPayDate,
+            /// <summary>
+            /// 支付交易号
+            /// </summary>
+            tradeNo
+        }
+
+        /// <summary>
+        /// 支付宝交易查询返回值筛选
+        /// </summary>
+        /// <param name="cs"></param>
+        /// <returns></returns>
+        public string GetJson(St cs)
+        {
+            var js = GetHtml("http://localhost:1901/AliPay/GetQuery?tradeno=716");
+            JObject jo = (JObject)JsonConvert.DeserializeObject(js);
+
+            string ss = null;
+            switch (cs)
+            {
+                case St.tradeStatus:
+                    ss = jo["tradeStatus"].ToString();
+                    break;
+                case St.sendPayDate:
+                    ss = jo["sendPayDate"].ToString();
+                    break;
+                case St.tradeNo:
+                    ss = jo["tradeNo"].ToString();
+                    break;
+            }
+            return ss;
+        }
+
+        /// <summary>
+        /// 指定Post地址使用Get 方式获取全部字符串
+        /// </summary>
+        /// <param name="url">调用地址</param>
+        /// <param name="dic">生成参数键对值</param>
+        /// <returns></returns>
+        public string PostHtml(string url,Dictionary<string, string> dic)
+        {
+            string result = "";
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+            #region 添加Post 参数
+            StringBuilder builder = new StringBuilder();
+            int i = 0;
+            foreach (var item in dic)
+            {
+                if (i > 0)
+                    builder.Append("&");
+                builder.AppendFormat("{0}={1}", item.Key, item.Value);
+                i++;
+            }
+            byte[] data = Encoding.UTF8.GetBytes(builder.ToString());
+            req.ContentLength = data.Length;
+            using (Stream reqStream = req.GetRequestStream())
+            {
+                reqStream.Write(data, 0, data.Length);
+                reqStream.Close();
+            }
+            #endregion
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            Stream stream = resp.GetResponseStream();
+            //获取响应内容
+            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                result = reader.ReadToEnd();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 解析JSON数组生成对象实体集合
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="json">json数组字符串(eg.[{"ID":"112","Name":"石子儿"}])</param>
+        /// <returns>对象实体集合</returns>
+        public static List<T> DeserializeJsonToList<T>(string json) where T : class
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            StringReader sr = new StringReader(json);
+            object o = serializer.Deserialize(new JsonTextReader(sr), typeof(List<T>));
+            List<T> list = o as List<T>;
+            return list;
         }
 
     }

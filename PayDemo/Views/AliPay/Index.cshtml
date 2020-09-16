@@ -2,7 +2,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
 
-        $(function () {
+        @*$(function () {
             var img = $('.qr-code-img');
             var test = $('#test');
 
@@ -39,25 +39,68 @@
                     }
                 })
             })
-        })
+        })*@
 
+        function GenCode() {
+            $("#imgqrcode").attr("src",
+                "/AliPay/FaceToPay?orderName=" +
+                $("#orderName").val() +
+                "&orderAmount=" +
+                $("#orderAmount").val() +
+                "&outTradeNo=" +
+                $("#tradeno").val() +
+                "&rand=" +
+                new Date().getTime());
+        }
     </script>
 
     <div class="row">
-        <div class="col-sm-12" s>
-            <div>
-                <div class="qr-order">
-                    <input id="ptn" type="button" name="name" value="支付信息" />
-                    <label id="pin1"></label><label id="pin2"></label><label id="pin3"></label>
+        <div class="col-sm-12">
+            <h1>扫码支付</h1>
+
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="tradeno" class="control-label col-sm-2">商户订单号：</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="tradeno" class="form-control" id="tradeno" value="" />
+                    </div>
                 </div>
-            </div>
-            <hr />
-            <div class="wr-qr">
-                <input id="btn" type="button" name="name" value="生成二维码" />
-                <div class="qr-order">
-                    <img src="#" class="qr-code-img" style="height:255px;width:249px;" />
+
+                <div class="form-group">
+                    <label for="orderName" class="control-label col-sm-2">订单名称：</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="orderName" class="form-control" id="orderName" value="" />
+                    </div>
                 </div>
-            </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="orderAmount" class="control-label col-sm-2">付款金额：</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="0.01" name="orderAmount" class="form-control" id="orderAmount" value="0.01" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button class="btn btn-success btn-block" type="button" id="btnGen" onclick="GenCode()">生成二维码</button>
+                        <p class="help-block text-center">支付结果将显示在控制台中，需要启用异步通知使用公网ip。</p>
+                        <p class="help-block text-center">生产环境可以通过轮询加异步通知的方式保证支付结果，本页面若要在支付成功后自动跳转使用SignalR</p>
+                    </div>
+
+                </div>
+            </form>
         </div>
+
+        <div class="col-sm-12" s>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="tradeno" class="control-label col-sm-2">二维码：</label>
+                    <div class="col-sm-10">
+                        <img id="imgqrcode" style="height:255px;width:249px;" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
 
