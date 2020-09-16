@@ -35,15 +35,15 @@ namespace PayDemo.Controllers
 
         const string URL = "https://openapi.alipay.com/gateway.do";  //沙箱环境与正式环境不同 这里要用沙箱的 支付宝地址
                                                                      //	APPID即创建应用后生成
-        const string APPID = "2021001192657314";
+        const string APPID = "填自己的";
         //开发者应用私钥，由开发者自己生成  开发者私钥到底是什么玩意  原来开发者私钥就是商户应用私钥
-        const string APP_PRIVATE_KEY = "MIIEpgIBAAKCAQEA67B/suXuWJd49usxuxgWwMrdy/yoCIHyM0ab0p5OJ9dNFSTfMA0b7MXQlNg/Mcf5lsZS07u0P7VqosVFvt4hnCBf/DEWcZ2BjWDApiNAwr9uQnEX4tFXeVeJutUL++Xx0BHErcFtvpVrgvUR7Pyosqktmb5Fq2nQwy58Qjo0fwXrAiYY+OasgHtI7RbMSYvggpxPEacw7d4OAO3IXTXIO3ifQdJYz1N7VrEajAwxQ2zx+XqU7NWGdFh6zGJDHHEC6k1zxsDBjlBOkayvaUfy9xUsY5fRRPXWBKn9usvCxsgTNoEeiOMCZ5OSGEWoP0gekP0cC33skHyWLH5p+5e5jQIDAQABAoIBAQDBetrZ2beYMoCy8tCYbmX/TopVcsvecA6L2WMBu8MdIbm9qc8uexR5gsp/5iW6kBdsltJXzrdhtWQcyyU+Usv0hv9E4Gc0TcCUduCvgjEfrlatZHnfUUsl6Z6/KTX1TAb+cBetLCUTV0Yy80wL6D30rL0qgPBgjzU5hWesVmvR+U4s846nrhEuQsOdeixANe+pjaCXhXfMCSZ/qDyutzdhpeXoAH1adZgGlamOfTPxVjB+tqP5gmrASc7QALEh5dUguXNYaJ0UT9+vxJS+cnFGaPtrWkgd+CZjhPW/bcoQ6mujVW48v+H4zZ+VX4OijGQA42KRPsD75Lhnu6RgXHFhAoGBAP6h1hnsfPtiY1KfuQM+3AutQp1TE5R8qQNurmAUJtMwgYEHDBofDev08RqbIXGtMiRzgFpMYu3Jr3e8zcvjBXId/pNkEzB+2lJ5azTF2NMbT5tdXPZOpOH+Wv3CcN4gjUOwj+Z8SyoCTiHI00GwZ3fwxgM145lDS2mOu8rzfWmnAoGBAOz0nOmQN1NDE2xYuIdTsFOsvvEtb8sa561hL3mI4MqEmh9rbnmj4s18tl5AStsT/h2OA4Ep/bXtXqvqxYdQdKFTc9HzAkcI7YitdTDGMWtXU4Ji0c/r7DUaAuXpVwDTNBbVToNzCkfQbnkW6/tGlp4cnu1XBiiKL6tR36WPY4GrAoGBAIb33XasRasyAZegFf9EaHrAAdlGWdCRKz0og8FlrRawVVTBGYcXAtgZY1tI8zdAKJ3toxE6AA4uo5WCPEtgMFjG0VPq7cj81Fh3B35XiJCNn2qo2Eeuc/NeUXjEgfMbqgVBJ2VyaJ0Bz8xUmLXu/Uk0FKFLBTMN2oE/KQdwfP9tAoGBAIjv7GaGM5LopqbstuduE+6nXEmgyoSD7fOiwH7p/Y7MBw21VkjxzzaVpgbd/OSSrz6BPcE9dSPYI+gSa0kB1AUPZ1WjrGNE45EjPSCMyS6Rbu9hEIOqgf1GJPqdWOxfIjE34IHSz9QkvlM4TfQPHSgOvkHHEwYGpfnJ/Qd+0DC1AoGBAOwPC1WjBkQO52aqlhUCiQHu3/EcxW0KTwuqsFmfozNPTIaeGg51nT3LH5lcS9zyHqRdqpPgEbV4maoq7/4guDCLw8xzDODoNG3tnSiPO12AEHojKcm0LVbIKIUdG1Mp/ouAFZK/mpS2V34qJ/xHPb52FmAgAsfCy6Oav9yk78CU";
+        const string APP_PRIVATE_KEY = "填自己的";
         //参数返回格式，只支持json
         const string FORMAT = "json";
         //请求和签名使用的字符编码格式，支持GBK和UTF-8
         const string CHARSET = "UTF-8";
         //支付宝公钥，由支付宝生成     到蚂蚁金服复制
-        const string ALIPAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkVkX1GcMTGOzJgi9C1g2EEfDepwRdkB7M2tLy6e2JGMITuOkFa2YnpHOt8eG0zH8tg2Tks/3JulV7JNl0nGrd7vMSRo3YXaYUYyv68lNVKr24Q1XeRIws/e8VbxvBkbeBAiz5AkTRuzM7C3SNs78x0wLkiTwcxtwNrVp+W+zk60KG7xLoz99yAoVsfA/FT3ioGYeq9qanClWAzQmbXHC55szN12sGMAjuFNMzhYgjI3JRk4uPARtkVyjCERfARhRCvaE6HjMgP5VUJsAKJGi+SY5XnlH57DGqcol1iNqKFx0y7asTA/svDrd+xnS22Bul4IY8r93pjli2VXEUf89ZwIDAQAB";
+        const string ALIPAY_PUBLIC_KEY = "填自己的";
 
         IAlipayTradeService serviceClient = F2FBiz.CreateClientInstance(URL, APPID, APP_PRIVATE_KEY, "1.0", "RSA2", ALIPAY_PUBLIC_KEY, CHARSET);
 
