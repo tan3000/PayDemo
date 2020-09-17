@@ -52,7 +52,7 @@ namespace PayDemo.Controllers
             //var ii = ts.Trim('"') == "TRADE_CLOSED" ? true : false;
             //return Content(GetJson(St.tradeStatus));
             Dictionary<string, string> openWith = new Dictionary<string, string>();
-            openWith.Add("tradeno", "333333214");
+            openWith.Add("tradeno", "716");
             openWith.Add("alipayTradeNo", "");
             var url= "http://localhost:1901/AliPay/OrderClose";
             return Content(PostHtml(url,openWith));
